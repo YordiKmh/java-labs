@@ -28,7 +28,7 @@ public class Digital {
             int numFilas = sheet.getLastRowNum() + 1; // Número de filas
             int numColumnas = sheet.getRow(0).getLastCellNum() + 1; // Número de columnas más la columna de conteo
 
-            String[][] datos = new String[numFilas][numColumnas];
+                Integer[][] datos = new Integer[numFilas][numColumnas];
 
             for (int i = 0; i < numFilas; i++) {
                 Row row = sheet.getRow(i);
@@ -36,12 +36,12 @@ public class Digital {
 
                 for (int j = 0; j < numColumnas - 1; j++) {
                     Cell cell = row.getCell(j, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    String contenidoCelda = obtenerContenidoCelda(cell);
-                    datos[i][j] = contenidoCelda;
-                    contadorUnosFila += contarUnos(contenidoCelda);
+                    Integer contenidoCelda = obtenerContenidoCelda(cell);
+                    datos[i][j] = (contenidoCelda);
+                    contadorUnosFila += contenidoCelda;
                 }
 
-                datos[i][numColumnas - 1] = Integer.toString(contadorUnosFila); // Almacenar conteo de '1' en la última columna
+                datos[i][numColumnas - 1] = (contadorUnosFila); // Almacenar conteo de '1' en la última columna
             }
 
             workbook.close();
@@ -54,7 +54,7 @@ public class Digital {
         }
     }
       
-       private static void printDoubleArray(int numFilas, int numColumnas, String[][] datos)
+       private static void printDoubleArray(int numFilas, int numColumnas, Integer[][] datos)
        {
             // Imprimir el arreglo bidimensional
             for (int i = 0; i < numFilas; i++) {
@@ -65,26 +65,16 @@ public class Digital {
             }
        }
     
-       private static String obtenerContenidoCelda(Cell cell) {
+       private static Integer obtenerContenidoCelda(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();
             case NUMERIC:
-                return Double.toString(cell.getNumericCellValue());
+                return (int) cell.getNumericCellValue();
             case BOOLEAN:
-                return Boolean.toString(cell.getBooleanCellValue());
+                return cell.getBooleanCellValue();
             default:
-                return "";
+                return 0;
         }
-    }
-
-    private static int contarUnos(String texto) {
-        int contador = 0;
-        for (char c : texto.toCharArray()) {
-            if (c == '1') {
-                contador++;
-            }
-        }
-        return contador;
     }
 }
