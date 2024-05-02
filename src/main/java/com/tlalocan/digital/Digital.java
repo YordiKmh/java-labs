@@ -1,22 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package com.tlalocan.digital;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-/**
- *
- * @author Ivan
- */
-public class Digital {
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-    private static String rutaArchivo = "c://archivo.xlsx"; // ruta al archivo
+public class Digital {
+    private static String rutaArchivo = "C:/Tabulador.xlsx"; // ruta al archivo
     
     public static void main(String[] args) {
         
@@ -47,15 +42,14 @@ public class Digital {
             workbook.close();
             file.close();
 
-           printDoubleArray(numFilas, numColumnas, datos);
+        printDoubleArray(numFilas, numColumnas, datos);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-      
-       private static void printDoubleArray(int numFilas, int numColumnas, Integer[][] datos)
-       {
+    private static void printDoubleArray(int numFilas, int numColumnas, Integer[][] datos)
+{
             // Imprimir el arreglo bidimensional
             for (int i = 0; i < numFilas; i++) {
                 for (int j = 0; j < numColumnas; j++) {
@@ -63,18 +57,18 @@ public class Digital {
                 }
                 System.out.println();
             }
-       }
+}
     
-       private static Integer obtenerContenidoCelda(Cell cell) {
+    private static Integer obtenerContenidoCelda(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
-                return cell.getStringCellValue();
-            case NUMERIC:
-                return (int) cell.getNumericCellValue();
-            case BOOLEAN:
-                return cell.getBooleanCellValue();
-            default:
-                return 0;
-        }
+            return Integer.parseInt(cell.getStringCellValue());
+        case NUMERIC:
+            return (int) cell.getNumericCellValue();
+        case BOOLEAN:
+            return cell.getBooleanCellValue() ? 1 : 0;
+        default:
+            return 0;
     }
+}
 }
